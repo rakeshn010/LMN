@@ -138,11 +138,15 @@
         function showLoginForm() {
             document.getElementById('loginForm').style.display = 'block';
             document.getElementById('registerForm').style.display = 'none';
+            // Clear login form
+            document.querySelector('#loginForm form').reset();
         }
         
         function showRegisterForm() {
             document.getElementById('loginForm').style.display = 'none';
             document.getElementById('registerForm').style.display = 'block';
+            // Clear register form
+            document.querySelector('#registerForm form').reset();
         }
         
         // Handle login
@@ -172,6 +176,7 @@
             const data = await response.json();
             if (data.success) {
                 alert(data.message);
+                e.target.reset(); // Clear the form
                 showLoginForm();
             } else {
                 alert(data.message);
