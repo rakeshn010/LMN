@@ -9,6 +9,9 @@ import json
 # Import models and db
 from models import db, User, Quote, Order, BlogPost, Newsletter
 
+# Import security features
+from security import rate_limit, sanitize_input, validate_email, validate_password, check_sql_injection, secure_headers
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-secret-key-change-in-production')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///lmn_industries.db')
@@ -17,11 +20,20 @@ if app.config['SQLALCHEMY_DATABASE_URI'].startswith('postgres://'):
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
+app.config['SESSION_COOKIE_SECURE'] = True  # Only send cookies over HTTPS
+app.config['SESSION_COOKIE_HTTPONLY'] = True  # Prevent JavaScript access to session cookie
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'  # CSRF protection
+app.config['PERMANENT_SESSION_LIFETIME'] = 3600  # 1 hour session timeout
 
 # Initialize extensions
 db.init_app(app)
 login_manager = LoginManager(app)
-login_manager.login_view = 'admin.login'  # Only admin login exists
+login_manager.login_view = 'admin.login'
+
+# Add security headers to all responses
+@app.after_request
+def add_security_headers(response):
+    return secure_headers(response)  # Only admin login exists
 
 # Ensure upload folder exists
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -164,9 +176,19 @@ def newsletter_subscribe():
 
 # Client portal - login via modal on main pages
 @app.route('/client/login', methods=['POST'])
+@rate_limit(max_requests=5, window=300)  # 5 attempts per 5 minutes
 def client_login():
-    email = request.form.get('email')
+    email = sanitize_input(request.form.get('email'))
     password = request.form.get('password')
+    
+    # Validate email format
+    if not validate_email(email):
+        return jsonify({'success': False, 'message': 'Invalid email format'})
+    
+    # Check for SQL injection
+    if check_sql_injection(email):
+        return jsonify({'success': False, 'message': 'Invalid input detected'})
+    
     user = User.query.filter_by(email=email, is_admin=False).first()
     
     if user and check_password_hash(user.password, password):
@@ -175,12 +197,26 @@ def client_login():
     return jsonify({'success': False, 'message': 'Invalid credentials'})
 
 @app.route('/client/register', methods=['POST'])
+@rate_limit(max_requests=3, window=600)  # 3 attempts per 10 minutes
 def client_register():
     try:
-        email = request.form.get('email')
+        email = sanitize_input(request.form.get('email'))
         password = request.form.get('password')
-        company_name = request.form.get('company_name')
-        country = request.form.get('country')
+        company_name = sanitize_input(request.form.get('company_name'))
+        country = sanitize_input(request.form.get('country'))
+        
+        # Validate email
+        if not validate_email(email):
+            return jsonify({'success': False, 'message': 'Invalid email format'})
+        
+        # Validate password strength
+        is_valid, message = validate_password(password)
+        if not is_valid:
+            return jsonify({'success': False, 'message': message})
+        
+        # Check for SQL injection
+        if check_sql_injection(email) or check_sql_injection(company_name):
+            return jsonify({'success': False, 'message': 'Invalid input detected'})
         
         # Check if email already exists
         if User.query.filter_by(email=email).first():
@@ -203,7 +239,7 @@ def client_register():
     except Exception as e:
         db.session.rollback()
         print(f"Registration error: {str(e)}")  # Log the error
-        return jsonify({'success': False, 'message': f'Registration failed: {str(e)}'})
+        return jsonify({'success': False, 'message': 'Registration failed. Please try again.'})
 
 @app.route('/client/dashboard')
 @login_required
