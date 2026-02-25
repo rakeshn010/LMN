@@ -176,20 +176,34 @@ def client_login():
 
 @app.route('/client/register', methods=['POST'])
 def client_register():
-    email = request.form.get('email')
-    if User.query.filter_by(email=email).first():
-        return jsonify({'success': False, 'message': 'Email already registered'})
+    try:
+        email = request.form.get('email')
+        password = request.form.get('password')
+        company_name = request.form.get('company_name')
+        country = request.form.get('country')
+        
+        # Check if email already exists
+        if User.query.filter_by(email=email).first():
+            return jsonify({'success': False, 'message': 'Email already registered'})
+        
+        # Create new user
+        user = User(
+            email=email,
+            password=generate_password_hash(password),
+            company_name=company_name,
+            country=country,
+            is_admin=False
+        )
+        
+        db.session.add(user)
+        db.session.commit()
+        
+        return jsonify({'success': True, 'message': 'Registration successful! Please login with your credentials.'})
     
-    user = User(
-        email=email,
-        password=generate_password_hash(request.form.get('password')),
-        company_name=request.form.get('company_name'),
-        country=request.form.get('country'),
-        is_admin=False
-    )
-    db.session.add(user)
-    db.session.commit()
-    return jsonify({'success': True, 'message': 'Registration successful. Please login.'})
+    except Exception as e:
+        db.session.rollback()
+        print(f"Registration error: {str(e)}")  # Log the error
+        return jsonify({'success': False, 'message': f'Registration failed: {str(e)}'})
 
 @app.route('/client/dashboard')
 @login_required
