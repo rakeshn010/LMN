@@ -120,14 +120,6 @@
         
         <div class="footer-bottom">
             <p>&copy; {{ datetime.now().year }} LMN Industries. All rights reserved. | <a href="#" style="color: var(--accent-gold);">Privacy Policy</a> | <a href="#" style="color: var(--accent-gold);">Terms of Service</a></p>
-            <p style="margin-top: 0.5rem;">
-                {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('client_dashboard') }}" style="color: var(--accent-gold);">My Account</a> | 
-                    <a href="{{ url_for('client_logout') }}" style="color: var(--accent-gold);">Logout</a>
-                {% else %}
-                    <a href="#" onclick="openLoginModal(); return false;" style="color: var(--accent-gold);">Client Login</a>
-                {% endif %}
-            </p>
         </div>
     </footer>
 

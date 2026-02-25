@@ -220,4 +220,21 @@
         </form>
     </div>
 </section>
+
+<!-- Client Login Section -->
+<section style="background: var(--primary-blue); padding: 3rem 2rem; text-align: center;">
+    <div style="max-width: 600px; margin: 0 auto;">
+        {% if current_user.is_authenticated %}
+            <h3 style="color: white; margin-bottom: 1rem;">Welcome back, {{ current_user.company_name or current_user.email }}!</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="{{ url_for('client_dashboard') }}" class="btn btn-primary" style="background: white; color: var(--primary-blue);">My Dashboard</a>
+                <a href="{{ url_for('client_logout') }}" class="btn btn-secondary" style="background: transparent; border: 2px solid white; color: white;">Logout</a>
+            </div>
+        {% else %}
+            <h3 style="color: white; margin-bottom: 0.5rem;">Existing Client?</h3>
+            <p style="color: rgba(255,255,255,0.9); margin-bottom: 1.5rem;">Login to track your orders and quotes</p>
+            <button onclick="openLoginModal()" class="btn btn-primary" style="background: white; color: var(--primary-blue); padding: 1rem 3rem; font-size: 1.1rem;">Client Login</button>
+        {% endif %}
+    </div>
+</section>
 {% endblock %}
