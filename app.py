@@ -21,7 +21,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 # Initialize extensions
 db.init_app(app)
 login_manager = LoginManager(app)
-login_manager.login_view = 'client_login'
+login_manager.login_view = 'admin.login'  # Only admin login exists
 
 # Ensure upload folder exists
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -162,50 +162,7 @@ def newsletter_subscribe():
     except:
         return jsonify({'success': False, 'message': 'Subscription failed'}), 400
 
-@app.route('/client/login', methods=['GET', 'POST'])
-def client_login():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
-        user = User.query.filter_by(email=email).first()
-        
-        if user and check_password_hash(user.password, password):
-            login_user(user)
-            return redirect(url_for('client_dashboard'))
-        flash('Invalid credentials')
-    return render_template('client_login.html')
-
-@app.route('/client/register', methods=['GET', 'POST'])
-def client_register():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        if User.query.filter_by(email=email).first():
-            flash('Email already registered')
-            return redirect(url_for('client_register'))
-        
-        user = User(
-            email=email,
-            password=generate_password_hash(request.form.get('password')),
-            company_name=request.form.get('company_name'),
-            country=request.form.get('country')
-        )
-        db.session.add(user)
-        db.session.commit()
-        flash('Registration successful. Please login.')
-        return redirect(url_for('client_login'))
-    return render_template('client_register.html')
-
-@app.route('/client/dashboard')
-@login_required
-def client_dashboard():
-    orders = Order.query.filter_by(user_id=current_user.id).order_by(Order.created_at.desc()).all()
-    return render_template('client_dashboard.html', orders=orders)
-
-@app.route('/client/logout')
-@login_required
-def client_logout():
-    logout_user()
-    return redirect(url_for('index'))
+# Client portal removed - customers use contact form and quote calculator directly
 
 @app.route('/sitemap.xml')
 def sitemap():
