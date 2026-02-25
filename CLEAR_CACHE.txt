@@ -1,0 +1,22 @@
+IMPORTANT: CLEAR YOUR BROWSER CACHE!
+
+The CSS has been updated but your browser might be showing the old version.
+
+To see the changes:
+
+Windows/Linux:
+- Chrome/Edge: Press Ctrl + Shift + R
+- Firefox: Press Ctrl + F5
+
+Mac:
+- Chrome/Safari: Press Cmd + Shift + R
+- Firefox: Press Cmd + Shift + R
+
+Or manually:
+1. Open browser settings
+2. Clear browsing data
+3. Select "Cached images and files"
+4. Clear data
+5. Refresh the page
+
+The content should now be centered properly!

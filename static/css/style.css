@@ -465,6 +465,9 @@ section > p {
     padding: 5rem 2rem;
     margin: 0;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .stats-grid {
