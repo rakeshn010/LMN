@@ -34,10 +34,45 @@
                 <li><a href="{{ url_for('industries') }}">Industries</a></li>
                 <li><a href="{{ url_for('blog') }}">Blog</a></li>
                 <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('client_dashboard') }}">My Account</a></li>
+                    <li><a href="{{ url_for('client_logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="#" onclick="openLoginModal(); return false;">Login</a></li>
+                {% endif %}
                 <li><a href="{{ url_for('quote_calculator') }}" class="cta-button">Get Quote</a></li>
             </ul>
         </nav>
     </header>
+
+    <!-- Login/Register Modal -->
+    <div id="loginModal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 400px; margin: 5% auto; background: white; padding: 2rem; border-radius: 8px; position: relative;">
+            <span class="close" onclick="closeLoginModal()" style="position: absolute; right: 1rem; top: 1rem; font-size: 2rem; cursor: pointer;">&times;</span>
+            
+            <div id="loginForm">
+                <h2 style="margin-bottom: 1.5rem;">Client Login</h2>
+                <form onsubmit="handleLogin(event)">
+                    <input type="email" name="email" placeholder="Email" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="password" name="password" placeholder="Password" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 4px;">
+                    <button type="submit" style="width: 100%; padding: 0.75rem; background: #1a365d; color: white; border: none; border-radius: 4px; cursor: pointer;">Login</button>
+                </form>
+                <p style="margin-top: 1rem; text-align: center;">Don't have an account? <a href="#" onclick="showRegisterForm(); return false;" style="color: #1a365d;">Register</a></p>
+            </div>
+            
+            <div id="registerForm" style="display: none;">
+                <h2 style="margin-bottom: 1.5rem;">Client Registration</h2>
+                <form onsubmit="handleRegister(event)">
+                    <input type="email" name="email" placeholder="Email" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="password" name="password" placeholder="Password" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="text" name="company_name" placeholder="Company Name" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="text" name="country" placeholder="Country" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 4px;">
+                    <button type="submit" style="width: 100%; padding: 0.75rem; background: #1a365d; color: white; border: none; border-radius: 4px; cursor: pointer;">Register</button>
+                </form>
+                <p style="margin-top: 1rem; text-align: center;">Already have an account? <a href="#" onclick="showLoginForm(); return false;" style="color: #1a365d;">Login</a></p>
+            </div>
+        </div>
+    </div>
 
     <!-- Main Content -->
     <main>
@@ -95,6 +130,68 @@
     </footer>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Modal functions
+        function openLoginModal() {
+            document.getElementById('loginModal').style.display = 'block';
+            showLoginForm();
+        }
+        
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+        
+        function showLoginForm() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+        }
+        
+        function showRegisterForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        }
+        
+        // Handle login
+        async function handleLogin(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const response = await fetch('/client/login', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            if (data.success) {
+                window.location.href = data.redirect;
+            } else {
+                alert(data.message);
+            }
+        }
+        
+        // Handle registration
+        async function handleRegister(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const response = await fetch('/client/register', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            if (data.success) {
+                alert(data.message);
+                showLoginForm();
+            } else {
+                alert(data.message);
+            }
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target == modal) {
+                closeLoginModal();
+            }
+        }
+    </script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

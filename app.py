@@ -162,7 +162,49 @@ def newsletter_subscribe():
     except:
         return jsonify({'success': False, 'message': 'Subscription failed'}), 400
 
-# Client portal removed - customers use contact form and quote calculator directly
+# Client portal - login via modal on main pages
+@app.route('/client/login', methods=['POST'])
+def client_login():
+    email = request.form.get('email')
+    password = request.form.get('password')
+    user = User.query.filter_by(email=email, is_admin=False).first()
+    
+    if user and check_password_hash(user.password, password):
+        login_user(user)
+        return jsonify({'success': True, 'redirect': url_for('client_dashboard')})
+    return jsonify({'success': False, 'message': 'Invalid credentials'})
+
+@app.route('/client/register', methods=['POST'])
+def client_register():
+    email = request.form.get('email')
+    if User.query.filter_by(email=email).first():
+        return jsonify({'success': False, 'message': 'Email already registered'})
+    
+    user = User(
+        email=email,
+        password=generate_password_hash(request.form.get('password')),
+        company_name=request.form.get('company_name'),
+        country=request.form.get('country'),
+        is_admin=False
+    )
+    db.session.add(user)
+    db.session.commit()
+    return jsonify({'success': True, 'message': 'Registration successful. Please login.'})
+
+@app.route('/client/dashboard')
+@login_required
+def client_dashboard():
+    if current_user.is_admin:
+        return redirect(url_for('admin.dashboard'))
+    orders = Order.query.filter_by(user_id=current_user.id).order_by(Order.created_at.desc()).all()
+    quotes = Quote.query.filter_by(email=current_user.email).order_by(Quote.created_at.desc()).all()
+    return render_template('client_dashboard.html', orders=orders, quotes=quotes)
+
+@app.route('/client/logout')
+@login_required
+def client_logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 @app.route('/sitemap.xml')
 def sitemap():
