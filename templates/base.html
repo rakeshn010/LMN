@@ -34,12 +34,6 @@
                 <li><a href="{{ url_for('industries') }}">Industries</a></li>
                 <li><a href="{{ url_for('blog') }}">Blog</a></li>
                 <li><a href="{{ url_for('contact') }}">Contact</a></li>
-                {% if current_user.is_authenticated %}
-                    <li><a href="{{ url_for('client_dashboard') }}">My Account</a></li>
-                    <li><a href="{{ url_for('client_logout') }}">Logout</a></li>
-                {% else %}
-                    <li><a href="#" onclick="openLoginModal(); return false;">Login</a></li>
-                {% endif %}
                 <li><a href="{{ url_for('quote_calculator') }}" class="cta-button">Get Quote</a></li>
             </ul>
         </nav>
@@ -126,6 +120,14 @@
         
         <div class="footer-bottom">
             <p>&copy; {{ datetime.now().year }} LMN Industries. All rights reserved. | <a href="#" style="color: var(--accent-gold);">Privacy Policy</a> | <a href="#" style="color: var(--accent-gold);">Terms of Service</a></p>
+            <p style="margin-top: 0.5rem;">
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('client_dashboard') }}" style="color: var(--accent-gold);">My Account</a> | 
+                    <a href="{{ url_for('client_logout') }}" style="color: var(--accent-gold);">Logout</a>
+                {% else %}
+                    <a href="#" onclick="openLoginModal(); return false;" style="color: var(--accent-gold);">Client Login</a>
+                {% endif %}
+            </p>
         </div>
     </footer>
 
