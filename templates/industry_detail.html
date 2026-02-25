@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section" style="margin-top: 120px;">
+    <div class="container">
+        {% if industry == 'automotive' %}
+        <h1 class="section-title">Automotive Industry</h1>
+        <p class="section-subtitle">Precision components for automotive excellence</p>
+        <div style="margin-top: 40px; line-height: 1.8; color: var(--metallic-grey);">
+            <p>We manufacture high-precision automotive components meeting stringent quality standards for global automotive manufacturers and tier-1 suppliers.</p>
+            <h3 style="color: var(--primary-blue); margin: 30px 0 15px;">Components We Manufacture:</h3>
+            <ul style="margin-left: 20px; line-height: 2;">
+                <li>Engine Components (pistons, connecting rods, crankshafts)</li>
+                <li>Transmission Parts (gears, shafts, synchronizer rings)</li>
+                <li>Chassis Components (suspension parts, steering components)</li>
+                <li>Brake System Parts (calipers, rotors, master cylinders)</li>
+                <li>Fuel System Components (injector bodies, pump parts)</li>
+            </ul>
+        </div>
+        {% elif industry == 'aerospace' %}
+        <h1 class="section-title">Aerospace Industry</h1>
+        <p class="section-subtitle">Mission-critical components for aviation</p>
+        <div style="margin-top: 40px; line-height: 1.8; color: var(--metallic-grey);">
+            <p>Manufacturing aerospace components with exceptional precision and material traceability, meeting AS9100 standards.</p>
+            <h3 style="color: var(--primary-blue); margin: 30px 0 15px;">Components We Manufacture:</h3>
+            <ul style="margin-left: 20px; line-height: 2;">
+                <li>Landing Gear Components</li>
+                <li>Structural Fasteners and Fittings</li>
+                <li>Hydraulic System Parts</li>
+                <li>Engine Mount Components</li>
+                <li>Actuator Parts</li>
+            </ul>
+        </div>
+        {% elif industry == 'oil-gas' %}
+        <h1 class="section-title">Oil & Gas Industry</h1>
+        <p class="section-subtitle">Robust components for harsh environments</p>
+        <div style="margin-top: 40px; line-height: 1.8; color: var(--metallic-grey);">
+            <p>Supplying corrosion-resistant, high-strength components for upstream, midstream, and downstream operations.</p>
+            <h3 style="color: var(--primary-blue); margin: 30px 0 15px;">Components We Manufacture:</h3>
+            <ul style="margin-left: 20px; line-height: 2;">
+                <li>Valve Bodies and Stems</li>
+                <li>Drilling Equipment Parts</li>
+                <li>Pipeline Fittings and Flanges</li>
+                <li>Pump Components</li>
+                <li>Wellhead Equipment Parts</li>
+            </ul>
+        </div>
+        {% elif industry == 'medical' %}
+        <h1 class="section-title">Medical Equipment Industry</h1>
+        <p class="section-subtitle">Precision components for healthcare</p>
+        <div style="margin-top: 40px; line-height: 1.8; color: var(--metallic-grey);">
+            <p>Manufacturing biocompatible components with exceptional surface finish and dimensional accuracy for medical devices.</p>
+            <h3 style="color: var(--primary-blue); margin: 30px 0 15px;">Components We Manufacture:</h3>
+            <ul style="margin-left: 20px; line-height: 2;">
+                <li>Surgical Instrument Components</li>
+                <li>Diagnostic Equipment Parts</li>
+                <li>Orthopedic Implant Components</li>
+                <li>Dental Equipment Parts</li>
+                <li>Medical Device Housings</li>
+            </ul>
+        </div>
+        {% else %}
+        <h1 class="section-title">{{ industry|title|replace('-', ' ') }} Industry</h1>
+        <p class="section-subtitle">Precision manufacturing solutions</p>
+        <div style="margin-top: 40px; line-height: 1.8; color: var(--metallic-grey);">
+            <p>We provide high-quality precision components tailored to your industry requirements.</p>
+        </div>
+        {% endif %}
+        
+        <div style="margin-top: 60px; text-align: center;">
+            <a href="{{ url_for('quote_calculator') }}" class="btn-primary">Request Quote for This Industry</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

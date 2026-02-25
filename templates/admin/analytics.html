@@ -1,0 +1,109 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Analytics - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="admin-header">
+    <h1>Analytics & Reports</h1>
+</div>
+
+<div class="analytics-grid">
+    <div class="admin-card">
+        <h3>Quotes by Country</h3>
+        <div class="chart-container">
+            {% if quotes_by_country %}
+                <table class="stats-table">
+                    {% for country, count in quotes_by_country %}
+                    <tr>
+                        <td>{{ country or 'Unknown' }}</td>
+                        <td><strong>{{ count }}</strong></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>No data available</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="admin-card">
+        <h3>Quotes by Material</h3>
+        <div class="chart-container">
+            {% if quotes_by_material %}
+                <table class="stats-table">
+                    {% for material, count in quotes_by_material %}
+                    <tr>
+                        <td>{{ material or 'Unknown' }}</td>
+                        <td><strong>{{ count }}</strong></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>No data available</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="admin-card full-width">
+        <h3>Monthly Quote Trends</h3>
+        <div class="chart-container">
+            {% if monthly_data %}
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Quotes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for month, count in monthly_data %}
+                        <tr>
+                            <td>{{ month }}</td>
+                            <td><strong>{{ count }}</strong></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No data available</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.chart-container {
+    padding: 1rem 0;
+}
+
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.stats-table td, .stats-table th {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.stats-table tr:hover {
+    background: #f8f9fa;
+}
+
+.stats-table strong {
+    color: #3498db;
+    font-size: 1.1rem;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Quote #{{ quote.id }}{% endblock %}
+
+{% block content %}
+<div class="top-bar">
+    <h1>Quote Request #{{ quote.id }}</h1>
+    <a href="{{ url_for('admin.quotes') }}" class="btn btn-secondary">← Back to Quotes</a>
+</div>
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
+    <div>
+        <div class="card">
+            <h2 style="color: #0A2463; margin-bottom: 25px;">Customer Information</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <strong>Name:</strong><br>{{ quote.name }}
+                </div>
+                <div>
+                    <strong>Email:</strong><br>{{ quote.email }}
+                </div>
+                <div>
+                    <strong>Company:</strong><br>{{ quote.company or 'N/A' }}
+                </div>
+                <div>
+                    <strong>Country:</strong><br>{{ quote.country }}
+                </div>
+                <div>
+                    <strong>Phone:</strong><br>{{ quote.phone or 'N/A' }}
+                </div>
+                <div>
+                    <strong>Date:</strong><br>{{ quote.created_at.strftime('%Y-%m-%d %H:%M') }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 style="color: #0A2463; margin-bottom: 25px;">Product Specifications</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <strong>Material:</strong><br>{{ quote.material }}
+                </div>
+                <div>
+                    <strong>Quantity:</strong><br>{{ quote.quantity }} pieces
+                </div>
+                <div>
+                    <strong>Dimensions:</strong><br>{{ quote.dimensions or 'N/A' }}
+                </div>
+                <div>
+                    <strong>Tolerance:</strong><br>{{ quote.tolerance }}
+                </div>
+                <div>
+                    <strong>Surface Finish:</strong><br>{{ quote.surface_finish }}
+                </div>
+                <div>
+                    <strong>Estimated Price:</strong><br>
+                    <span style="font-size: 1.5rem; color: #D4AF37; font-weight: 700;">${{ "%.2f"|format(quote.estimated_price) }}</span>
+                </div>
+            </div>
+            
+            {% if quote.description %}
+            <div style="margin-top: 25px; padding-top: 25px; border-top: 1px solid #E5E7EB;">
+                <strong>Additional Requirements:</strong><br>
+                <p style="margin-top: 10px; line-height: 1.6;">{{ quote.description }}</p>
+            </div>
+            {% endif %}
+            
+            {% if quote.file_path %}
+            <div style="margin-top: 25px; padding-top: 25px; border-top: 1px solid #E5E7EB;">
+                <strong>Attached Drawing:</strong><br>
+                <a href="/{{ quote.file_path }}" target="_blank" class="btn btn-secondary" style="margin-top: 10px;">📄 Download File</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div>
+        <div class="card">
+            <h2 style="color: #0A2463; margin-bottom: 25px;">Status Management</h2>
+            
+            <div style="text-align: center; margin-bottom: 25px;">
+                <span class="badge badge-{{ quote.status }}" style="font-size: 1rem; padding: 10px 20px;">{{ quote.status|title }}</span>
+            </div>
+            
+            <form method="POST" action="{{ url_for('admin.update_quote_status', quote_id=quote.id) }}">
+                <div class="form-group">
+                    <label>Update Status:</label>
+                    <select name="status" class="form-control">
+                        <option value="pending" {% if quote.status == 'pending' %}selected{% endif %}>Pending</option>
+                        <option value="approved" {% if quote.status == 'approved' %}selected{% endif %}>Approved</option>
+                        <option value="rejected" {% if quote.status == 'rejected' %}selected{% endif %}>Rejected</option>
+                        <option value="processing" {% if quote.status == 'processing' %}selected{% endif %}>Processing</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Update Status</button>
+            </form>
+            
+            <div style="margin-top: 25px; padding-top: 25px; border-top: 1px solid #E5E7EB;">
+                <a href="mailto:{{ quote.email }}?subject=Quote Request #{{ quote.id }}" class="btn btn-success" style="width: 100%; margin-bottom: 10px;">📧 Send Email</a>
+                <a href="https://wa.me/{{ quote.phone }}?text=Hello {{ quote.name }}, regarding your quote request #{{ quote.id }}" class="btn btn-success" style="width: 100%; background: #25D366;">💬 WhatsApp</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

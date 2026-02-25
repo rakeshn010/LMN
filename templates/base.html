@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="{{ current_lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}LMN Industries - Global leader in precision CNC turning, lathe works, and custom machining. ISO certified manufacturer.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}CNC turning, precision machining, lathe works, custom manufacturing, industrial components{% endblock %}">
+    <title>{% block title %}LMN Industries - Precision CNC Manufacturing{% endblock %}</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}" class="logo">LMN Industries</a>
+            
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul id="mobile-menu">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('services') }}">Services</a></li>
+                <li><a href="{{ url_for('machinery') }}">Machinery</a></li>
+                <li><a href="{{ url_for('export_page') }}">Export</a></li>
+                <li><a href="{{ url_for('industries') }}">Industries</a></li>
+                <li><a href="{{ url_for('blog') }}">Blog</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                <li><a href="{{ url_for('quote_calculator') }}" class="cta-button">Get Quote</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>LMN Industries</h3>
+                <p>Global leader in precision CNC turning and custom machining solutions. ISO 9001:2015 certified manufacturer.</p>
+                <div class="social-links" style="margin-top: 1.5rem;">
+                    <a href="#" style="margin-right: 1rem; font-size: 1.5rem;">📘</a>
+                    <a href="#" style="margin-right: 1rem; font-size: 1.5rem;">🔗</a>
+                    <a href="#" style="margin-right: 1rem; font-size: 1.5rem;">📧</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <li><a href="{{ url_for('machinery') }}">Machinery</a></li>
+                    <li><a href="{{ url_for('industries') }}">Industries</a></li>
+                    <li><a href="{{ url_for('blog') }}">Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="{{ url_for('service_detail', service_name='cnc-turning') }}">CNC Turning</a></li>
+                    <li><a href="{{ url_for('service_detail', service_name='precision-machining') }}">Precision Machining</a></li>
+                    <li><a href="{{ url_for('service_detail', service_name='custom-manufacturing') }}">Custom Manufacturing</a></li>
+                    <li><a href="{{ url_for('service_detail', service_name='quality-inspection') }}">Quality Inspection</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li>📍 2F9J+9W2, Thigalarapalya, Bengaluru, Karihobanahalli, Karnataka 560058, India</li>
+                    <li>📞 +91 7795533453</li>
+                    <li>✉️ lmnindustries1@gmail.com</li>
+                    <li>🕐 Daily: 9 AM - 11 PM IST</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; {{ datetime.now().year }} LMN Industries. All rights reserved. | <a href="#" style="color: var(--accent-gold);">Privacy Policy</a> | <a href="#" style="color: var(--accent-gold);">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Newsletter Subscribers - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="admin-header">
+    <h1>Newsletter Subscribers</h1>
+    <div>
+        <span class="badge">{{ subscribers|length }} Total</span>
+    </div>
+</div>
+
+<div class="admin-card">
+    <div class="table-responsive">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Subscribed Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if subscribers %}
+                    {% for subscriber in subscribers %}
+                    <tr>
+                        <td>{{ subscriber.id }}</td>
+                        <td>{{ subscriber.email }}</td>
+                        <td>{{ subscriber.subscribed_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>
+                            <button class="btn-small btn-danger" onclick="return confirm('Remove subscriber?')">Remove</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 2rem;">
+                            No subscribers yet
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+.badge {
+    background: #3498db;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+}
+</style>
+{% endblock %}

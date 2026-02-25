@@ -1,0 +1,46 @@
+{
+    "nav": {
+        "home": "Startseite",
+        "about": "Über uns",
+        "services": "Dienstleistungen",
+        "machinery": "Maschinen",
+        "export": "Export",
+        "industries": "Branchen",
+        "blog": "Blog",
+        "contact": "Kontakt",
+        "get_quote": "Angebot erhalten"
+    },
+    "hero": {
+        "title": "Globale Präzisions-CNC-Dreh- und Bearbeitungsexperten",
+        "subtitle": "ISO-zertifizierter Hersteller | Präzisionstoleranz ±0,01 mm | Bedienung von über 25 Ländern weltweit",
+        "get_quote": "Sofortangebot erhalten",
+        "export_inquiry": "Exportanfrage",
+        "download_profile": "Firmenprofil herunterladen"
+    },
+    "stats": {
+        "years_experience": "Jahre Erfahrung",
+        "clients": "Globale Kunden",
+        "components": "Hergestellte Komponenten",
+        "countries": "Bediente Länder"
+    },
+    "services": {
+        "title": "Unsere Fertigungskapazitäten",
+        "subtitle": "Umfassende Präzisionsbearbeitungslösungen für globale Industrien"
+    },
+    "industries": {
+        "title": "Branchen, die wir bedienen",
+        "subtitle": "Lieferung von Präzisionskomponenten in verschiedenen Industriesektoren"
+    },
+    "export": {
+        "title": "Globales Exportnetzwerk",
+        "subtitle": "Vertrauenswürdiger Fertigungspartner für internationale Märkte"
+    },
+    "certifications": {
+        "title": "Qualitätszertifizierungen",
+        "subtitle": "Verpflichtet zu internationalen Qualitäts- und Umweltstandards"
+    },
+    "testimonials": {
+        "title": "Kundenstimmen",
+        "subtitle": "Was unsere globalen Partner über uns sagen"
+    }
+}

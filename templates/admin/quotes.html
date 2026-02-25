@@ -1,0 +1,60 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Quotes Management{% endblock %}
+
+{% block content %}
+<div class="top-bar">
+    <h1>Quote Requests</h1>
+    <div>
+        <a href="?status=all" class="btn {% if status_filter == 'all' %}btn-primary{% else %}btn-secondary{% endif %}" style="margin-right: 10px;">All</a>
+        <a href="?status=pending" class="btn {% if status_filter == 'pending' %}btn-primary{% else %}btn-secondary{% endif %}" style="margin-right: 10px;">Pending</a>
+        <a href="?status=approved" class="btn {% if status_filter == 'approved' %}btn-primary{% else %}btn-secondary{% endif %}" style="margin-right: 10px;">Approved</a>
+        <a href="?status=rejected" class="btn {% if status_filter == 'rejected' %}btn-primary{% else %}btn-secondary{% endif %}">Rejected</a>
+    </div>
+</div>
+
+<div class="card">
+    {% if quotes %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Company</th>
+                <th>Country</th>
+                <th>Material</th>
+                <th>Quantity</th>
+                <th>Estimate</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quote in quotes %}
+            <tr>
+                <td>#{{ quote.id }}</td>
+                <td>{{ quote.name }}</td>
+                <td>{{ quote.email }}</td>
+                <td>{{ quote.company or 'N/A' }}</td>
+                <td>{{ quote.country }}</td>
+                <td>{{ quote.material }}</td>
+                <td>{{ quote.quantity }}</td>
+                <td>${{ "%.2f"|format(quote.estimated_price) }}</td>
+                <td>
+                    <span class="badge badge-{{ quote.status }}">{{ quote.status|title }}</span>
+                </td>
+                <td>{{ quote.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>
+                    <a href="{{ url_for('admin.quote_detail', quote_id=quote.id) }}" class="btn btn-primary" style="padding: 5px 15px; font-size: 0.875rem;">View</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align: center; color: #6B7280; padding: 40px;">No quotes found</p>
+    {% endif %}
+</div>
+{% endblock %}

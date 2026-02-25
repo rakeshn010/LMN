@@ -1,0 +1,46 @@
+{
+    "nav": {
+        "home": "Accueil",
+        "about": "À propos",
+        "services": "Services",
+        "machinery": "Machines",
+        "export": "Export",
+        "industries": "Industries",
+        "blog": "Blog",
+        "contact": "Contact",
+        "get_quote": "Obtenir un devis"
+    },
+    "hero": {
+        "title": "Experts mondiaux en tournage CNC et usinage de précision",
+        "subtitle": "Fabricant certifié ISO | Tolérance de précision ±0,01 mm | Au service de plus de 25 pays dans le monde",
+        "get_quote": "Obtenir un devis instantané",
+        "export_inquiry": "Demande d'exportation",
+        "download_profile": "Télécharger le profil de l'entreprise"
+    },
+    "stats": {
+        "years_experience": "Années d'expérience",
+        "clients": "Clients mondiaux",
+        "components": "Composants fabriqués",
+        "countries": "Pays desservis"
+    },
+    "services": {
+        "title": "Nos capacités de fabrication",
+        "subtitle": "Solutions complètes d'usinage de précision pour les industries mondiales"
+    },
+    "industries": {
+        "title": "Industries que nous servons",
+        "subtitle": "Livraison de composants de précision dans divers secteurs industriels"
+    },
+    "export": {
+        "title": "Réseau d'exportation mondial",
+        "subtitle": "Partenaire de fabrication de confiance pour les marchés internationaux"
+    },
+    "certifications": {
+        "title": "Certifications de qualité",
+        "subtitle": "Engagés envers les normes internationales de qualité et d'environnement"
+    },
+    "testimonials": {
+        "title": "Témoignages de clients",
+        "subtitle": "Ce que nos partenaires mondiaux disent de nous"
+    }
+}

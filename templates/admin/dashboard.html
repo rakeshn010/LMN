@@ -1,0 +1,94 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="top-bar">
+    <h1>Dashboard Overview</h1>
+    <div>{{ datetime.now().strftime('%B %d, %Y') }}</div>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card primary">
+        <div class="stat-value">{{ total_quotes }}</div>
+        <div class="stat-label">Total Quotes</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ pending_quotes }}</div>
+        <div class="stat-label">Pending Quotes</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ total_orders }}</div>
+        <div class="stat-label">Total Orders</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ total_clients }}</div>
+        <div class="stat-label">Registered Clients</div>
+    </div>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-value">${{ "%.2f"|format(total_revenue) }}</div>
+        <div class="stat-label">Total Revenue</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ monthly_quotes }}</div>
+        <div class="stat-label">Quotes This Month</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ monthly_orders }}</div>
+        <div class="stat-label">Orders This Month</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ total_subscribers }}</div>
+        <div class="stat-label">Newsletter Subscribers</div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2>Recent Quote Requests</h2>
+        <a href="{{ url_for('admin.quotes') }}" class="btn btn-primary">View All</a>
+    </div>
+    
+    {% if recent_quotes %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Material</th>
+                <th>Quantity</th>
+                <th>Estimate</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quote in recent_quotes %}
+            <tr>
+                <td>#{{ quote.id }}</td>
+                <td>{{ quote.name }}</td>
+                <td>{{ quote.company or 'N/A' }}</td>
+                <td>{{ quote.material }}</td>
+                <td>{{ quote.quantity }}</td>
+                <td>${{ "%.2f"|format(quote.estimated_price) }}</td>
+                <td>
+                    <span class="badge badge-{{ quote.status }}">{{ quote.status|title }}</span>
+                </td>
+                <td>{{ quote.created_at.strftime('%Y-%m-%d') }}</td>
+                <td>
+                    <a href="{{ url_for('admin.quote_detail', quote_id=quote.id) }}" class="btn btn-secondary" style="padding: 5px 15px; font-size: 0.875rem;">View</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align: center; color: #6B7280; padding: 40px;">No quotes yet</p>
+    {% endif %}
+</div>
+{% endblock %}

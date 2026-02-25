@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}Our Services - LMN Industries{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" style="padding: 6rem 2rem;">
+    <div class="hero-content">
+        <h1 class="animate-on-scroll">Precision Manufacturing Services</h1>
+        <p class="animate-on-scroll">Comprehensive solutions for all your machining needs</p>
+    </div>
+</section>
+
+<!-- Main Services -->
+<section>
+    <h2 class="animate-on-scroll">Our Core Services</h2>
+    <p class="animate-on-scroll">Industry-leading precision manufacturing capabilities</p>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">⚙️</div>
+        <div class="feature-content">
+            <h3>CNC Turning</h3>
+            <p>High-precision CNC turning services with tolerances up to ±0.01mm. Our advanced multi-axis CNC lathes handle complex geometries with ease.</p>
+            <ul style="margin-top: 1rem; line-height: 2;">
+                <li>✓ 2-axis to 5-axis CNC turning</li>
+                <li>✓ Diameter range: 1mm to 500mm</li>
+                <li>✓ Length up to 1000mm</li>
+                <li>✓ Tolerances: ±0.01mm</li>
+                <li>✓ Surface finish: Ra 0.4μm</li>
+            </ul>
+            <a href="{{ url_for('service_detail', service_name='cnc-turning') }}" class="btn btn-primary" style="margin-top: 1.5rem;">Learn More</a>
+        </div>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">🔧</div>
+        <div class="feature-content">
+            <h3>Precision Machining</h3>
+            <p>State-of-the-art precision machining for critical components across all industries. ISO certified quality management ensures consistent excellence.</p>
+            <ul style="margin-top: 1rem; line-height: 2;">
+                <li>✓ Milling, drilling, boring operations</li>
+                <li>✓ Thread cutting and tapping</li>
+                <li>✓ Grinding and finishing</li>
+                <li>✓ Complex 3D geometries</li>
+                <li>✓ Micro-machining capabilities</li>
+            </ul>
+            <a href="{{ url_for('service_detail', service_name='precision-machining') }}" class="btn btn-primary" style="margin-top: 1.5rem;">Learn More</a>
+        </div>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">🏭</div>
+        <div class="feature-content">
+            <h3>Custom Manufacturing</h3>
+            <p>Tailored manufacturing solutions from prototype to production. Expert engineering support and design optimization included.</p>
+            <ul style="margin-top: 1rem; line-height: 2;">
+                <li>✓ Prototype development</li>
+                <li>✓ Low to high volume production</li>
+                <li>✓ Design for manufacturability (DFM)</li>
+                <li>✓ Material selection guidance</li>
+                <li>✓ Cost optimization</li>
+            </ul>
+            <a href="{{ url_for('service_detail', service_name='custom-manufacturing') }}" class="btn btn-primary" style="margin-top: 1.5rem;">Learn More</a>
+        </div>
+    </div>
+</section>
+
+<!-- Additional Services -->
+<section class="features">
+    <h2 class="animate-on-scroll">Additional Capabilities</h2>
+    
+    <div class="grid">
+        <div class="card animate-on-scroll">
+            <span class="card-icon">✅</span>
+            <h3>Quality Inspection</h3>
+            <p>Comprehensive quality control with CMM inspection, material testing, and full documentation for complete traceability.</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🌍</span>
+            <h3>Export Services</h3>
+            <p>Global shipping expertise with complete export documentation, customs compliance, and specialized packaging.</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🎯</span>
+            <h3>Rapid Prototyping</h3>
+            <p>Fast turnaround prototyping services to accelerate your product development and testing cycles.</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🔬</span>
+            <h3>Material Testing</h3>
+            <p>In-house material testing and certification including hardness testing, tensile testing, and chemical analysis.</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">📐</span>
+            <h3>Reverse Engineering</h3>
+            <p>Expert reverse engineering services to recreate components from samples or damaged parts.</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🎨</span>
+            <h3>Surface Treatment</h3>
+            <p>Various surface finishing options including anodizing, plating, powder coating, and heat treatment.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Materials -->
+<section>
+    <h2 class="animate-on-scroll">Materials We Work With</h2>
+    <p class="animate-on-scroll">Extensive experience with a wide range of materials</p>
+    
+    <div class="grid">
+        <div class="card animate-on-scroll">
+            <h3>Metals</h3>
+            <p>Stainless Steel, Mild Steel, Aluminum, Brass, Copper, Bronze, Titanium, Inconel, Tool Steel</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <h3>Plastics</h3>
+            <p>ABS, Nylon, PEEK, Delrin, Acetal, PTFE, Polycarbonate, UHMW</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <h3>Exotic Materials</h3>
+            <p>Titanium alloys, Inconel, Hastelloy, Monel, Specialty alloys for aerospace and medical</p>
+        </div>
+    </div>
+</section>
+
+<!-- Process -->
+<section class="features">
+    <h2 class="animate-on-scroll">Our Process</h2>
+    <p class="animate-on-scroll">From concept to delivery - a streamlined workflow</p>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">1️⃣</div>
+        <div class="feature-content">
+            <h3>Quote & Consultation</h3>
+            <p>Submit your drawings and specifications. Our team reviews and provides a detailed quote within 24 hours, including technical recommendations.</p>
+        </div>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">2️⃣</div>
+        <div class="feature-content">
+            <h3>Design Review</h3>
+            <p>Our engineers review your design for manufacturability, suggest optimizations, and confirm all specifications before production begins.</p>
+        </div>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">3️⃣</div>
+        <div class="feature-content">
+            <h3>Production</h3>
+            <p>Precision manufacturing using state-of-the-art CNC equipment. Real-time quality checks ensure every component meets specifications.</p>
+        </div>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">4️⃣</div>
+        <div class="feature-content">
+            <h3>Quality Assurance</h3>
+            <p>Comprehensive inspection using CMM equipment, material testing, and documentation. Full traceability on every component.</p>
+        </div>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">5️⃣</div>
+        <div class="feature-content">
+            <h3>Delivery</h3>
+            <p>Secure packaging and global shipping. Complete documentation including inspection reports, material certificates, and export paperwork.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section animate-on-scroll">
+    <h2>Ready to Get Started?</h2>
+    <p>Get an instant quote for your precision manufacturing project</p>
+    <a href="{{ url_for('quote_calculator') }}" class="btn btn-large">Get Instant Quote</a>
+</section>
+{% endblock %}

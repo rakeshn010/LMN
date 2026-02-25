@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Blog & Resources - LMN Industries{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" style="padding: 6rem 2rem;">
+    <div class="hero-content">
+        <h1 class="animate-on-scroll">Blog & Resources</h1>
+        <p class="animate-on-scroll">Industry insights, technical guides, and manufacturing expertise</p>
+    </div>
+</section>
+
+<!-- Blog Posts -->
+<section>
+    <h2 class="animate-on-scroll">Latest Articles</h2>
+    <p class="animate-on-scroll">Stay updated with the latest in precision manufacturing</p>
+    
+    {% if posts %}
+    <div class="grid">
+        {% for post in posts %}
+        <div class="card animate-on-scroll">
+            <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; text-align: center;">
+                <span style="font-size: 3rem;">📝</span>
+            </div>
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+                {% if post.category %}
+                <span style="background: var(--accent-gold); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">
+                    {{ post.category }}
+                </span>
+                {% endif %}
+                <span style="color: var(--text-gray); font-size: 0.85rem; padding: 0.3rem 0;">
+                    {{ post.created_at.strftime('%B %d, %Y') }}
+                </span>
+            </div>
+            <h3>{{ post.title }}</h3>
+            <p style="color: var(--text-gray);">
+                {% if post.meta_description %}
+                    {{ post.meta_description }}
+                {% else %}
+                    {{ post.content[:150]|striptags }}...
+                {% endif %}
+            </p>
+            <a href="{{ url_for('blog_post', slug=post.slug) }}" class="card-link" style="margin-top: 1rem;">
+                Read More →
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="card animate-on-scroll" style="text-align: center; padding: 4rem 2rem;">
+        <span style="font-size: 4rem; margin-bottom: 1rem; display: block;">📚</span>
+        <h3>No Blog Posts Yet</h3>
+        <p style="color: var(--text-gray); margin-top: 1rem;">Check back soon for industry insights and technical articles!</p>
+    </div>
+    {% endif %}
+</section>
+
+<!-- Categories -->
+<section class="features">
+    <h2 class="animate-on-scroll">Browse by Category</h2>
+    
+    <div class="grid">
+        <div class="card animate-on-scroll">
+            <span class="card-icon">⚙️</span>
+            <h3>CNC Technology</h3>
+            <p>Latest advances in CNC machining, tooling, and automation</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🏭</span>
+            <h3>Manufacturing Tips</h3>
+            <p>Best practices, design guidelines, and process optimization</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🌍</span>
+            <h3>Export Insights</h3>
+            <p>International trade, shipping, and compliance information</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🔬</span>
+            <h3>Quality Standards</h3>
+            <p>ISO certifications, industry standards, and quality control</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">💡</span>
+            <h3>Case Studies</h3>
+            <p>Real-world projects and customer success stories</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">📊</span>
+            <h3>Industry Trends</h3>
+            <p>Market insights and manufacturing industry analysis</p>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section style="background: var(--bg-light); padding: 4rem 2rem; text-align: center; border-radius: 20px;">
+    <div style="max-width: 600px; margin: 0 auto;">
+        <h2 class="animate-on-scroll">Subscribe to Our Newsletter</h2>
+        <p class="animate-on-scroll" style="margin-bottom: 2rem; color: var(--text-gray);">Get the latest articles and industry insights delivered to your inbox</p>
+        <form id="newsletter-form" style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;" class="animate-on-scroll">
+            <input type="email" name="email" placeholder="Enter your email address" required 
+                   style="flex: 1; min-width: 250px; padding: 1rem 1.5rem; border: 2px solid #e5e7eb; border-radius: 10px; font-size: 1rem;">
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+    </div>
+</section>
+
+<!-- Resources -->
+<section>
+    <h2 class="animate-on-scroll">Helpful Resources</h2>
+    
+    <div class="grid">
+        <div class="card animate-on-scroll">
+            <span class="card-icon">📖</span>
+            <h3>Material Guide</h3>
+            <p>Comprehensive guide to materials, properties, and applications for precision machining.</p>
+            <a href="#" class="card-link" style="margin-top: 1rem;">Download PDF →</a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">📏</span>
+            <h3>Tolerance Chart</h3>
+            <p>Standard tolerances and capabilities reference chart for CNC machining.</p>
+            <a href="#" class="card-link" style="margin-top: 1rem;">Download PDF →</a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🎨</span>
+            <h3>Surface Finish Guide</h3>
+            <p>Visual guide to surface finishes with Ra values and typical applications.</p>
+            <a href="#" class="card-link" style="margin-top: 1rem;">Download PDF →</a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section animate-on-scroll">
+    <h2>Have a Question?</h2>
+    <p>Our technical team is here to help with your manufacturing challenges</p>
+    <a href="{{ url_for('contact') }}" class="btn btn-large">Contact Our Experts</a>
+</section>
+{% endblock %}

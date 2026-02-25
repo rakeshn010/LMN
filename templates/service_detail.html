@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section" style="margin-top: 120px;">
+    <div class="container">
+        <a href="{{ url_for('services') }}" style="color: var(--accent-gold); font-weight: 600; margin-bottom: 30px; display: inline-block;">← Back to Services</a>
+        
+        {% if service == 'cnc-turning' %}
+        <h1 class="section-title">CNC Turning Services</h1>
+        <p class="section-subtitle">High-precision CNC turning with tolerance up to ±0.01mm</p>
+        <div style="margin-top: 40px; line-height: 1.8; color: var(--metallic-grey);">
+            <p>Our advanced CNC turning centers deliver exceptional precision for cylindrical components across various industries.</p>
+        </div>
+        {% elif service == 'lathe-works' %}
+        <h1 class="section-title">Lathe Job Works</h1>
+        <p class="section-subtitle">Conventional and CNC lathe operations</p>
+        {% elif service == 'custom-machining' %}
+        <h1 class="section-title">Custom Component Manufacturing</h1>
+        <p class="section-subtitle">From drawing to delivery</p>
+        {% elif service == 'batch-production' %}
+        <h1 class="section-title">Batch Production</h1>
+        <p class="section-subtitle">High-volume production with consistent quality</p>
+        {% elif service == 'prototype' %}
+        <h1 class="section-title">Prototype Development</h1>
+        <p class="section-subtitle">Rapid prototyping for product development</p>
+        {% elif service == 'oem' %}
+        <h1 class="section-title">OEM Manufacturing</h1>
+        <p class="section-subtitle">White label production for global brands</p>
+        {% endif %}
+        
+        <div style="margin-top: 60px; text-align: center;">
+            <a href="{{ url_for('quote_calculator') }}" class="btn-primary">Request Quote for This Service</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

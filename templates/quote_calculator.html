@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+
+{% block title %}Get Instant Quote - LMN Industries{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" style="padding: 6rem 2rem;">
+    <div class="hero-content">
+        <h1 class="animate-on-scroll">Get Instant Quote</h1>
+        <p class="animate-on-scroll">Fast, accurate pricing for your precision manufacturing project</p>
+    </div>
+</section>
+
+<!-- Quote Form Section -->
+<section>
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 3rem;">
+        <!-- Main Form -->
+        <div class="card animate-on-scroll">
+            <h2 style="margin-bottom: 1.5rem;">Project Details</h2>
+            <form id="quote-form" data-ajax action="{{ url_for('submit_quote') }}" method="POST" enctype="multipart/form-data">
+                <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">Contact Information</h3>
+                
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required placeholder="John Doe">
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required placeholder="john@company.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+1 234 567 8900">
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label for="company">Company Name</label>
+                        <input type="text" id="company" name="company" placeholder="Your Company">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="country">Country *</label>
+                        <input type="text" id="country" name="country" required placeholder="United States">
+                    </div>
+                </div>
+                
+                <hr style="margin: 2rem 0; border: none; border-top: 1px solid #e5e7eb;">
+                
+                <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">Part Specifications</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label for="material">Material *</label>
+                        <select id="material" name="material" required>
+                            <option value="">Select material</option>
+                            <option value="stainless_steel">Stainless Steel</option>
+                            <option value="mild_steel">Mild Steel</option>
+                            <option value="aluminum">Aluminum</option>
+                            <option value="brass">Brass</option>
+                            <option value="copper">Copper</option>
+                            <option value="titanium">Titanium</option>
+                            <option value="plastic">Plastic (Nylon, PEEK, etc.)</option>
+                            <option value="other">Other (specify in description)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quantity">Quantity *</label>
+                        <input type="number" id="quantity" name="quantity" required min="1" placeholder="100">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dimensions">Dimensions (L x W x H or Diameter x Length)</label>
+                    <input type="text" id="dimensions" name="dimensions" placeholder="e.g., 50mm x 30mm x 20mm or Ø25mm x 100mm">
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label for="tolerance">Tolerance Requirements</label>
+                        <select id="tolerance" name="tolerance">
+                            <option value="">Select tolerance</option>
+                            <option value="standard">Standard (±0.1mm)</option>
+                            <option value="precision">Precision (±0.05mm)</option>
+                            <option value="high_precision">High Precision (±0.01mm)</option>
+                            <option value="custom">Custom (specify in description)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="surface_finish">Surface Finish</label>
+                        <select id="surface_finish" name="surface_finish">
+                            <option value="">Select finish</option>
+                            <option value="as_machined">As Machined</option>
+                            <option value="smooth">Smooth (Ra 1.6μm)</option>
+                            <option value="polished">Polished (Ra 0.8μm)</option>
+                            <option value="mirror">Mirror Finish (Ra 0.4μm)</option>
+                            <option value="anodized">Anodized</option>
+                            <option value="plated">Plated</option>
+                            <option value="powder_coated">Powder Coated</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Additional Details</label>
+                    <textarea id="description" name="description" rows="4" placeholder="Any special requirements, threading, heat treatment, etc."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="drawing_file">Upload Drawing/CAD File (Optional)</label>
+                    <input type="file" id="drawing_file" name="drawing_file" accept=".pdf,.dwg,.dxf,.step,.stp,.iges,.igs">
+                    <small style="display: block; margin-top: 0.5rem; color: var(--text-gray);">
+                        Accepted formats: PDF, DWG, DXF, STEP, IGES (Max 16MB)
+                    </small>
+                </div>
+                
+                <div id="price-estimate" style="display: none; padding: 1.5rem; background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%); color: white; border-radius: 10px; margin: 1.5rem 0; text-align: center; font-size: 1.2rem; font-weight: 600;"></div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.2rem; font-size: 1.1rem;">
+                    Get Instant Quote
+                </button>
+            </form>
+        </div>
+        
+        <!-- Sidebar -->
+        <div>
+            <div class="card animate-on-scroll">
+                <h3 style="margin-bottom: 1rem;">Why Get a Quote?</h3>
+                <ul style="line-height: 2; color: var(--text-gray);">
+                    <li>✓ Instant price estimate</li>
+                    <li>✓ No obligation</li>
+                    <li>✓ Fast response (24 hours)</li>
+                    <li>✓ Expert technical review</li>
+                    <li>✓ Design optimization tips</li>
+                </ul>
+            </div>
+            
+            <div class="card animate-on-scroll" style="margin-top: 2rem; background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-navy) 100%); color: white;">
+                <h3 style="margin-bottom: 1rem; color: var(--accent-gold);">Need Help?</h3>
+                <p style="margin-bottom: 1rem;">Our team is here to assist you</p>
+                <div style="margin-bottom: 1rem;">
+                    <strong>📞 Phone</strong>
+                    <p style="margin-top: 0.5rem;">+91 7795533453</p>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <strong>✉️ Email</strong>
+                    <p style="margin-top: 0.5rem;">lmnindustries1@gmail.com</p>
+                </div>
+                <div>
+                    <strong>🕐 Hours</strong>
+                    <p style="margin-top: 0.5rem;">Daily: 9 AM - 11 PM IST</p>
+                </div>
+            </div>
+            
+            <div class="card animate-on-scroll" style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1rem;">What Happens Next?</h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div>
+                        <strong style="color: var(--accent-gold);">1. Review</strong>
+                        <p style="color: var(--text-gray); margin-top: 0.5rem; font-size: 0.9rem;">Our engineers review your specifications</p>
+                    </div>
+                    <div>
+                        <strong style="color: var(--accent-gold);">2. Quote</strong>
+                        <p style="color: var(--text-gray); margin-top: 0.5rem; font-size: 0.9rem;">Receive detailed quote within 24 hours</p>
+                    </div>
+                    <div>
+                        <strong style="color: var(--accent-gold);">3. Discuss</strong>
+                        <p style="color: var(--text-gray); margin-top: 0.5rem; font-size: 0.9rem;">Technical consultation if needed</p>
+                    </div>
+                    <div>
+                        <strong style="color: var(--accent-gold);">4. Production</strong>
+                        <p style="color: var(--text-gray); margin-top: 0.5rem; font-size: 0.9rem;">Start manufacturing upon approval</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features">
+    <h2 class="animate-on-scroll">Our Competitive Advantages</h2>
+    
+    <div class="grid">
+        <div class="card animate-on-scroll">
+            <span class="card-icon">⚡</span>
+            <h3>Fast Turnaround</h3>
+            <p>Standard 2-4 weeks lead time with rush options available for urgent projects.</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">💰</span>
+            <h3>Competitive Pricing</h3>
+            <p>Volume discounts and optimized processes ensure best value without compromising quality.</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🏆</span>
+            <h3>ISO Certified</h3>
+            <p>ISO 9001:2015 certified quality management ensures consistent excellence.</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🌍</span>
+            <h3>Global Shipping</h3>
+            <p>Ship to 50+ countries with complete export documentation included.</p>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section>
+    <h2 class="animate-on-scroll">Frequently Asked Questions</h2>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-content">
+            <h3>How accurate is the instant quote?</h3>
+            <p>The instant estimate provides a ballpark figure based on material and quantity. Our team will review your specifications and provide a detailed quote within 24 hours.</p>
+        </div>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-content">
+            <h3>What if I don't have a CAD file?</h3>
+            <p>No problem! You can provide a sketch, photo, or detailed description. Our engineering team can help create the necessary drawings.</p>
+        </div>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-content">
+            <h3>What's the minimum order quantity?</h3>
+            <p>We accept orders from single prototypes to high-volume production. No minimum order quantity required.</p>
+        </div>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-content">
+            <h3>Can you help with design optimization?</h3>
+            <p>Yes! Our engineers provide design for manufacturability (DFM) feedback to optimize your design for cost and quality.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

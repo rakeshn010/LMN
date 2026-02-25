@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+{% block title %}Precision CNC Manufacturing - LMN Industries{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="animate-on-scroll">
+            Global Leader in <span class="highlight">Precision CNC Manufacturing</span>
+        </h1>
+        <p class="animate-on-scroll">ISO 9001:2015 Certified | Serving 50+ Countries | 25+ Years of Excellence</p>
+        <div class="hero-buttons animate-on-scroll">
+            <a href="{{ url_for('quote_calculator') }}" class="btn btn-primary">Get Instant Quote</a>
+            <a href="{{ url_for('about') }}" class="btn btn-secondary">Learn More</a>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats">
+    <div class="stats-grid">
+        <div class="stat-item animate-on-scroll">
+            <span class="stat-number" data-count="25" data-suffix="+">0+</span>
+            <span class="stat-label">Years Experience</span>
+        </div>
+        <div class="stat-item animate-on-scroll">
+            <span class="stat-number" data-count="50" data-suffix="+">0+</span>
+            <span class="stat-label">Countries Served</span>
+        </div>
+        <div class="stat-item animate-on-scroll">
+            <span class="stat-number" data-count="10000" data-suffix="+">0+</span>
+            <span class="stat-label">Projects Completed</span>
+        </div>
+        <div class="stat-item animate-on-scroll">
+            <span class="stat-number" data-count="99" data-suffix="%">0%</span>
+            <span class="stat-label">Client Satisfaction</span>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services">
+    <h2 class="animate-on-scroll">Our Services</h2>
+    <p class="animate-on-scroll">Comprehensive precision manufacturing solutions for global industries</p>
+    
+    <div class="grid">
+        <div class="card animate-on-scroll">
+            <span class="card-icon">⚙️</span>
+            <h3>CNC Turning</h3>
+            <p>High-precision CNC turning services with tolerances up to ±0.01mm. Advanced multi-axis capabilities for complex geometries.</p>
+            <a href="{{ url_for('service_detail', service_name='cnc-turning') }}" class="card-link">
+                Learn More →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🔧</span>
+            <h3>Precision Machining</h3>
+            <p>State-of-the-art precision machining for critical components. ISO certified quality management systems.</p>
+            <a href="{{ url_for('service_detail', service_name='precision-machining') }}" class="card-link">
+                Learn More →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🏭</span>
+            <h3>Custom Manufacturing</h3>
+            <p>Tailored manufacturing solutions from prototype to production. Expert engineering support included.</p>
+            <a href="{{ url_for('service_detail', service_name='custom-manufacturing') }}" class="card-link">
+                Learn More →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">✅</span>
+            <h3>Quality Inspection</h3>
+            <p>Comprehensive quality control with CMM inspection, material testing, and full documentation.</p>
+            <a href="{{ url_for('service_detail', service_name='quality-inspection') }}" class="card-link">
+                Learn More →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🌍</span>
+            <h3>Export Services</h3>
+            <p>Global shipping expertise with complete export documentation and compliance support.</p>
+            <a href="{{ url_for('export_page') }}" class="card-link">
+                Learn More →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🎯</span>
+            <h3>Rapid Prototyping</h3>
+            <p>Fast turnaround prototyping services to accelerate your product development cycle.</p>
+            <a href="{{ url_for('service_detail', service_name='rapid-prototyping') }}" class="card-link">
+                Learn More →
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+    <h2 class="animate-on-scroll">Why Choose LMN Industries</h2>
+    <p class="animate-on-scroll">Industry-leading precision manufacturing with global reach</p>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">🏆</div>
+        <div class="feature-content">
+            <h3>ISO 9001:2015 Certified</h3>
+            <p>Internationally recognized quality management system ensuring consistent excellence in every project. Regular audits and continuous improvement processes.</p>
+        </div>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">🚀</div>
+        <div class="feature-content">
+            <h3>Advanced Technology</h3>
+            <p>Latest CNC machines with multi-axis capabilities, automated quality control systems, and real-time production monitoring.</p>
+        </div>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-content">
+            <h3>Global Reach</h3>
+            <p>Serving clients in USA, Germany, UAE, UK, Canada, Australia, and 40+ more countries with reliable international shipping.</p>
+        </div>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-content">
+            <h3>Fast Delivery</h3>
+            <p>Optimized production workflows and strategic partnerships ensure quick turnaround times without compromising quality.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Industries Section -->
+<section id="industries">
+    <h2 class="animate-on-scroll">Industries We Serve</h2>
+    <p class="animate-on-scroll">Precision manufacturing solutions across diverse sectors</p>
+    
+    <div class="grid">
+        <div class="card animate-on-scroll">
+            <span class="card-icon">✈️</span>
+            <h3>Aerospace</h3>
+            <p>Critical aerospace components with stringent quality requirements and full traceability.</p>
+            <a href="{{ url_for('industry_detail', industry_name='aerospace') }}" class="card-link">
+                Explore →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🚗</span>
+            <h3>Automotive</h3>
+            <p>High-volume automotive parts manufacturing with consistent quality and competitive pricing.</p>
+            <a href="{{ url_for('industry_detail', industry_name='automotive') }}" class="card-link">
+                Explore →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🏥</span>
+            <h3>Medical Devices</h3>
+            <p>FDA-compliant medical device components with biocompatible materials and cleanroom manufacturing.</p>
+            <a href="{{ url_for('industry_detail', industry_name='medical') }}" class="card-link">
+                Explore →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">⚡</span>
+            <h3>Energy</h3>
+            <p>Durable components for renewable energy, oil & gas, and power generation applications.</p>
+            <a href="{{ url_for('industry_detail', industry_name='energy') }}" class="card-link">
+                Explore →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🔬</span>
+            <h3>Electronics</h3>
+            <p>Precision components for electronics manufacturing with tight tolerances and surface finish requirements.</p>
+            <a href="{{ url_for('industry_detail', industry_name='electronics') }}" class="card-link">
+                Explore →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🏗️</span>
+            <h3>Construction</h3>
+            <p>Heavy-duty industrial components for construction equipment and infrastructure projects.</p>
+            <a href="{{ url_for('industry_detail', industry_name='construction') }}" class="card-link">
+                Explore →
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section animate-on-scroll">
+    <h2>Ready to Start Your Project?</h2>
+    <p>Get an instant quote and experience world-class precision manufacturing</p>
+    <a href="{{ url_for('quote_calculator') }}" class="btn btn-large">Get Instant Quote</a>
+</section>
+
+<!-- Newsletter Section -->
+<section style="background: var(--bg-light); padding: 4rem 2rem; text-align: center;">
+    <div style="max-width: 600px; margin: 0 auto;">
+        <h2 class="animate-on-scroll">Stay Updated</h2>
+        <p class="animate-on-scroll" style="margin-bottom: 2rem;">Subscribe to our newsletter for industry insights and company updates</p>
+        <form id="newsletter-form" style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;" class="animate-on-scroll">
+            <input type="email" name="email" placeholder="Enter your email address" required 
+                   style="flex: 1; min-width: 250px; padding: 1rem 1.5rem; border: 2px solid #e5e7eb; border-radius: 10px; font-size: 1rem;">
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

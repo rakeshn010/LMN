@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} - LMN Industries Blog{% endblock %}
+{% block meta_description %}{{ post.meta_description }}{% endblock %}
+{% block meta_keywords %}{{ post.meta_keywords }}{% endblock %}
+
+{% block content %}
+<section class="section" style="margin-top: 120px;">
+    <div class="container" style="max-width: 900px;">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <div style="color: var(--accent-gold); font-size: 0.875rem; margin-bottom: 10px;">{{ post.category }}</div>
+            <h1 style="font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 20px;">{{ post.title }}</h1>
+            <div style="color: var(--metallic-grey); font-size: 0.95rem;">
+                By {{ post.author }} | {{ post.created_at.strftime('%B %d, %Y') }}
+            </div>
+        </div>
+        
+        <article style="line-height: 1.8; color: var(--text-dark);">
+            {{ post.content|safe }}
+        </article>
+        
+        <div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid #E5E7EB;">
+            <a href="{{ url_for('blog') }}" style="color: var(--accent-gold); font-weight: 600;">← Back to Blog</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

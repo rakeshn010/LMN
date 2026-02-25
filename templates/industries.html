@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+
+{% block title %}Industries We Serve - LMN Industries{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" style="padding: 6rem 2rem;">
+    <div class="hero-content">
+        <h1 class="animate-on-scroll">Industries We Serve</h1>
+        <p class="animate-on-scroll">Precision manufacturing solutions across diverse sectors</p>
+    </div>
+</section>
+
+<!-- Industries Grid -->
+<section>
+    <h2 class="animate-on-scroll">Our Industry Expertise</h2>
+    <p class="animate-on-scroll">Specialized knowledge and experience across multiple industries</p>
+    
+    <div class="grid">
+        <div class="card animate-on-scroll">
+            <span class="card-icon">✈️</span>
+            <h3>Aerospace</h3>
+            <p>Critical aerospace components with stringent quality requirements, full traceability, and AS9100 compliance. Experience with titanium, Inconel, and exotic alloys.</p>
+            <ul style="margin-top: 1rem; line-height: 1.8; color: var(--text-gray);">
+                <li>• Engine components</li>
+                <li>• Landing gear parts</li>
+                <li>• Structural components</li>
+                <li>• Hydraulic fittings</li>
+            </ul>
+            <a href="{{ url_for('industry_detail', industry_name='aerospace') }}" class="card-link" style="margin-top: 1rem;">
+                Learn More →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🚗</span>
+            <h3>Automotive</h3>
+            <p>High-volume automotive parts manufacturing with consistent quality and competitive pricing. IATF 16949 certified processes for tier 1 and tier 2 suppliers.</p>
+            <ul style="margin-top: 1rem; line-height: 1.8; color: var(--text-gray);">
+                <li>• Transmission components</li>
+                <li>• Engine parts</li>
+                <li>• Suspension components</li>
+                <li>• Brake system parts</li>
+            </ul>
+            <a href="{{ url_for('industry_detail', industry_name='automotive') }}" class="card-link" style="margin-top: 1rem;">
+                Learn More →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🏥</span>
+            <h3>Medical Devices</h3>
+            <p>FDA-compliant medical device components with biocompatible materials and cleanroom manufacturing. ISO 13485 certified quality management system.</p>
+            <ul style="margin-top: 1rem; line-height: 1.8; color: var(--text-gray);">
+                <li>• Surgical instruments</li>
+                <li>• Implant components</li>
+                <li>• Diagnostic equipment parts</li>
+                <li>• Dental instruments</li>
+            </ul>
+            <a href="{{ url_for('industry_detail', industry_name='medical') }}" class="card-link" style="margin-top: 1rem;">
+                Learn More →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">⚡</span>
+            <h3>Energy & Power</h3>
+            <p>Durable components for renewable energy, oil & gas, and power generation applications. Experience with high-temperature and corrosion-resistant materials.</p>
+            <ul style="margin-top: 1rem; line-height: 1.8; color: var(--text-gray);">
+                <li>• Turbine components</li>
+                <li>• Valve parts</li>
+                <li>• Pump components</li>
+                <li>• Generator parts</li>
+            </ul>
+            <a href="{{ url_for('industry_detail', industry_name='energy') }}" class="card-link" style="margin-top: 1rem;">
+                Learn More →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🔬</span>
+            <h3>Electronics</h3>
+            <p>Precision components for electronics manufacturing with tight tolerances and excellent surface finish requirements. ESD-safe handling available.</p>
+            <ul style="margin-top: 1rem; line-height: 1.8; color: var(--text-gray);">
+                <li>• Heat sinks</li>
+                <li>• Connector components</li>
+                <li>• Enclosure parts</li>
+                <li>• Mounting hardware</li>
+            </ul>
+            <a href="{{ url_for('industry_detail', industry_name='electronics') }}" class="card-link" style="margin-top: 1rem;">
+                Learn More →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🏗️</span>
+            <h3>Construction & Heavy Equipment</h3>
+            <p>Heavy-duty industrial components for construction equipment and infrastructure projects. Large capacity machining available.</p>
+            <ul style="margin-top: 1rem; line-height: 1.8; color: var(--text-gray);">
+                <li>• Hydraulic cylinders</li>
+                <li>• Bearing housings</li>
+                <li>• Structural components</li>
+                <li>• Wear parts</li>
+            </ul>
+            <a href="{{ url_for('industry_detail', industry_name='construction') }}" class="card-link" style="margin-top: 1rem;">
+                Learn More →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🛢️</span>
+            <h3>Oil & Gas</h3>
+            <p>Critical components for upstream, midstream, and downstream operations. Experience with high-pressure and corrosive environments.</p>
+            <ul style="margin-top: 1rem; line-height: 1.8; color: var(--text-gray);">
+                <li>• Valve components</li>
+                <li>• Pump parts</li>
+                <li>• Drilling equipment</li>
+                <li>• Pipeline fittings</li>
+            </ul>
+            <a href="{{ url_for('industry_detail', industry_name='oil-gas') }}" class="card-link" style="margin-top: 1rem;">
+                Learn More →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🚢</span>
+            <h3>Marine & Defense</h3>
+            <p>Robust components for marine and defense applications with corrosion resistance and durability in harsh environments.</p>
+            <ul style="margin-top: 1rem; line-height: 1.8; color: var(--text-gray);">
+                <li>• Propulsion components</li>
+                <li>• Navigation equipment parts</li>
+                <li>• Deck hardware</li>
+                <li>• Defense system components</li>
+            </ul>
+            <a href="{{ url_for('industry_detail', industry_name='marine') }}" class="card-link" style="margin-top: 1rem;">
+                Learn More →
+            </a>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🏭</span>
+            <h3>Industrial Machinery</h3>
+            <p>Components for industrial equipment manufacturers including automation, robotics, and material handling systems.</p>
+            <ul style="margin-top: 1rem; line-height: 1.8; color: var(--text-gray);">
+                <li>• Gears and shafts</li>
+                <li>• Actuator components</li>
+                <li>• Conveyor parts</li>
+                <li>• Machine tool components</li>
+            </ul>
+            <a href="{{ url_for('industry_detail', industry_name='industrial') }}" class="card-link" style="margin-top: 1rem;">
+                Learn More →
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Industry Standards -->
+<section class="features">
+    <h2 class="animate-on-scroll">Industry Certifications & Standards</h2>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">🏆</div>
+        <div class="feature-content">
+            <h3>ISO 9001:2015</h3>
+            <p>International quality management system certification ensuring consistent excellence across all industries we serve.</p>
+        </div>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">✈️</div>
+        <div class="feature-content">
+            <h3>AS9100 (Aerospace)</h3>
+            <p>Aerospace quality management system with additional requirements for aviation, space, and defense organizations.</p>
+        </div>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">🏥</div>
+        <div class="feature-content">
+            <h3>ISO 13485 (Medical)</h3>
+            <p>Medical device quality management system ensuring compliance with regulatory requirements for medical device manufacturing.</p>
+        </div>
+    </div>
+    
+    <div class="feature-card animate-on-scroll">
+        <div class="feature-icon">🚗</div>
+        <div class="feature-content">
+            <h3>IATF 16949 (Automotive)</h3>
+            <p>Automotive quality management system standard for automotive production and relevant service parts organizations.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section>
+    <h2 class="animate-on-scroll">Why Industries Choose LMN</h2>
+    
+    <div class="grid">
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🎯</span>
+            <h3>Industry Expertise</h3>
+            <p>Deep understanding of industry-specific requirements, standards, and best practices developed over 25+ years.</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🔒</span>
+            <h3>Quality Assurance</h3>
+            <p>Rigorous quality control processes with full traceability and documentation for regulated industries.</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">⚡</span>
+            <h3>Fast Turnaround</h3>
+            <p>Optimized production workflows and capacity planning ensure on-time delivery for critical projects.</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">💡</span>
+            <h3>Engineering Support</h3>
+            <p>Expert technical team provides design optimization, material selection, and manufacturability guidance.</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">📊</span>
+            <h3>Scalability</h3>
+            <p>Flexible capacity from prototypes to high-volume production with consistent quality at any scale.</p>
+        </div>
+        
+        <div class="card animate-on-scroll">
+            <span class="card-icon">🌍</span>
+            <h3>Global Reach</h3>
+            <p>International shipping expertise with complete export documentation and customs compliance.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section animate-on-scroll">
+    <h2>Your Industry, Our Expertise</h2>
+    <p>Let's discuss how we can support your specific industry requirements</p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="{{ url_for('contact') }}" class="btn btn-large">Contact Us</a>
+        <a href="{{ url_for('quote_calculator') }}" class="btn btn-large" style="background: white; color: var(--accent-gold-dark);">Get Quote</a>
+    </div>
+</section>
+{% endblock %}

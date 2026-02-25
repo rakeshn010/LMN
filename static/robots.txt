@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.lmnindustries.com/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /client/
+Disallow: /admin/
+Disallow: /uploads/

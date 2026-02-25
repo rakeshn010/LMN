@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Dashboard{% endblock %} - LMN Industries</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            color: #2c3e50;
+        }
+        
+        .admin-container { display: flex; min-height: 100vh; }
+        
+        /* Sidebar Styling */
+        .sidebar { 
+            width: 280px; 
+            background: linear-gradient(180deg, #1a2332 0%, #0f1419 100%);
+            color: white; 
+            padding: 0;
+            position: fixed; 
+            height: 100vh; 
+            overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar-header { 
+            padding: 30px 25px;
+            background: rgba(212, 175, 55, 0.1);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            margin-bottom: 20px;
+        }
+        .sidebar-header h2 { 
+            font-size: 1.6rem; 
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #D4AF37 0%, #F4E5B8 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .sidebar-header p { 
+            font-size: 0.85rem; 
+            color: rgba(255,255,255,0.6);
+            font-weight: 400;
+        }
+        
+        .sidebar-menu { list-style: none; padding: 10px 15px; }
+        .sidebar-menu li { margin-bottom: 4px; }
+        .sidebar-menu a { 
+            display: flex; 
+            align-items: center; 
+            padding: 14px 18px;
+            color: rgba(255,255,255,0.75);
+            text-decoration: none; 
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .sidebar-menu a:hover { 
+            background: rgba(212, 175, 55, 0.15);
+            color: #D4AF37;
+            transform: translateX(5px);
+        }
+        .sidebar-menu a.active { 
+            background: linear-gradient(135deg, #D4AF37 0%, #B8960F 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        .sidebar-menu a span { 
+            margin-right: 12px; 
+            font-size: 1.3rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content { 
+            margin-left: 280px; 
+            flex: 1; 
+            padding: 35px 40px;
+            min-height: 100vh;
+        }
+        
+        /* Page Header */
+        .admin-header {
+            background: white;
+            padding: 25px 35px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .admin-header h1 { 
+            font-size: 2rem; 
+            color: #1a2332;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        /* Cards */
+        .admin-card { 
+            background: white; 
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 25px;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .admin-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Stats Grid */
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+            gap: 25px; 
+            margin-bottom: 35px; 
+        }
+        .stat-card { 
+            background: white;
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #D4AF37 0%, #B8960F 100%);
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        .stat-card .stat-value { 
+            font-size: 2.8rem; 
+            font-weight: 800; 
+            color: #1a2332;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+        .stat-card .stat-label { 
+            color: #6B7280; 
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .stat-card.primary { 
+            background: linear-gradient(135deg, #1a2332 0%, #2c3e50 100%);
+            color: white;
+        }
+        .stat-card.primary .stat-value { color: #D4AF37; }
+        .stat-card.primary .stat-label { color: rgba(255,255,255,0.85); }
+        
+        /* Buttons */
+        .btn { 
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+        }
+        .btn-primary { 
+            background: linear-gradient(135deg, #D4AF37 0%, #B8960F 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        .btn-primary:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+        .btn-secondary { 
+            background: #6B7280;
+            color: white;
+        }
+        .btn-secondary:hover { 
+            background: #4B5563;
+            transform: translateY(-2px);
+        }
+        .btn-success { 
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        .btn-danger { 
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.875rem;
+        }
+        
+        /* Tables */
+        .table-responsive { overflow-x: auto; }
+        .admin-table { 
+            width: 100%; 
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .admin-table th { 
+            text-align: left; 
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #1a2332;
+            font-weight: 700;
+            border-bottom: 2px solid #D4AF37;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .admin-table th:first-child { border-radius: 10px 0 0 0; }
+        .admin-table th:last-child { border-radius: 0 10px 0 0; }
+        .admin-table td { 
+            padding: 16px 20px;
+            border-bottom: 1px solid #E5E7EB;
+            font-size: 0.95rem;
+        }
+        .admin-table tr:hover { 
+            background: #f8f9fa;
+        }
+        .admin-table tr:last-child td { border-bottom: none; }
+        
+        /* Status Badges */
+        .status-badge { 
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .status-pending { background: #FEF3C7; color: #92400E; }
+        .status-approved { background: #D1FAE5; color: #065F46; }
+        .status-rejected { background: #FEE2E2; color: #991B1B; }
+        .status-processing { background: #DBEAFE; color: #1E40AF; }
+        
+        /* Forms */
+        .form-group { margin-bottom: 22px; }
+        .form-group label { 
+            display: block; 
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #1a2332;
+            font-size: 0.95rem;
+        }
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea { 
+            width: 100%;
+            padding: 13px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+        .form-group textarea { 
+            resize: vertical; 
+            min-height: 150px;
+        }
+        
+        /* Alerts */
+        .alert { 
+            padding: 16px 22px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        .alert-success { 
+            background: #D1FAE5;
+            color: #065F46;
+            border-left: 4px solid #10B981;
+        }
+        .alert-error { 
+            background: #FEE2E2;
+            color: #991B1B;
+            border-left: 4px solid #EF4444;
+        }
+        
+        /* Scrollbar */
+        .sidebar::-webkit-scrollbar { width: 6px; }
+        .sidebar::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+        .sidebar::-webkit-scrollbar-thumb { 
+            background: rgba(212, 175, 55, 0.5);
+            border-radius: 10px;
+        }
+        .sidebar::-webkit-scrollbar-thumb:hover { 
+            background: rgba(212, 175, 55, 0.7);
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>LMN Admin</h2>
+                <p>{{ current_user.email }}</p>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li><a href="{{ url_for('admin.dashboard') }}" class="{% if request.endpoint == 'admin.dashboard' %}active{% endif %}"><span>📊</span> Dashboard</a></li>
+                <li><a href="{{ url_for('admin.quotes') }}" class="{% if 'quotes' in request.endpoint %}active{% endif %}"><span>💼</span> Quotes</a></li>
+                <li><a href="{{ url_for('admin.orders') }}" class="{% if 'orders' in request.endpoint %}active{% endif %}"><span>📦</span> Orders</a></li>
+                <li><a href="{{ url_for('admin.clients') }}" class="{% if 'clients' in request.endpoint %}active{% endif %}"><span>👥</span> Clients</a></li>
+                <li><a href="{{ url_for('admin.blog_posts') }}" class="{% if 'blog' in request.endpoint %}active{% endif %}"><span>📝</span> Blog</a></li>
+                <li><a href="{{ url_for('admin.newsletter_subscribers') }}" class="{% if 'newsletter' in request.endpoint %}active{% endif %}"><span>📧</span> Newsletter</a></li>
+                <li><a href="{{ url_for('admin.analytics') }}" class="{% if 'analytics' in request.endpoint %}active{% endif %}"><span>📈</span> Analytics</a></li>
+                <li><a href="{{ url_for('admin.settings') }}" class="{% if 'settings' in request.endpoint %}active{% endif %}"><span>⚙️</span> Settings</a></li>
+                <li style="margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <a href="{{ url_for('index') }}"><span>🏠</span> View Website</a>
+                </li>
+                <li><a href="{{ url_for('admin.logout') }}"><span>🚪</span> Logout</a></li>
+            </ul>
+        </aside>
+        
+        <main class="main-content">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+    "nav": {
+        "home": "Home",
+        "about": "About Us",
+        "services": "Services",
+        "machinery": "Machinery",
+        "export": "Export",
+        "industries": "Industries",
+        "blog": "Blog",
+        "contact": "Contact",
+        "get_quote": "Get Quote"
+    },
+    "hero": {
+        "title": "Global Precision CNC Turning & Machining Experts",
+        "subtitle": "ISO Certified Manufacturer | Precision Tolerance ±0.01mm | Serving 25+ Countries Worldwide",
+        "get_quote": "Get Instant Quote",
+        "export_inquiry": "Export Inquiry",
+        "download_profile": "Download Company Profile"
+    },
+    "stats": {
+        "years_experience": "Years Experience",
+        "clients": "Global Clients",
+        "components": "Components Manufactured",
+        "countries": "Countries Served"
+    },
+    "services": {
+        "title": "Our Manufacturing Capabilities",
+        "subtitle": "Comprehensive precision machining solutions for global industries"
+    },
+    "industries": {
+        "title": "Industries We Serve",
+        "subtitle": "Delivering precision components across diverse industrial sectors"
+    },
+    "export": {
+        "title": "Global Export Network",
+        "subtitle": "Trusted manufacturing partner for international markets"
+    },
+    "certifications": {
+        "title": "Quality Certifications",
+        "subtitle": "Committed to international quality and environmental standards"
+    },
+    "testimonials": {
+        "title": "Client Testimonials",
+        "subtitle": "What our global partners say about us"
+    }
+}
