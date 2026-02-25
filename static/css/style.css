@@ -325,18 +325,15 @@ nav a:hover::after {
 
 section {
     padding: 6rem 2rem;
-    max-width: 1400px;
     margin: 0 auto;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 /* Center all direct children of sections */
 section > * {
-    width: 100%;
     max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 section h2 {
@@ -379,7 +376,9 @@ section > p {
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2.5rem;
     margin-top: 3rem;
-    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .card {
@@ -465,9 +464,6 @@ section > p {
     padding: 5rem 2rem;
     margin: 0;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .stats-grid {
@@ -475,7 +471,8 @@ section > p {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 3rem;
     max-width: 1200px;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
     width: 100%;
 }
 
