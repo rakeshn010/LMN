@@ -330,6 +330,14 @@ section {
     width: 100%;
 }
 
+/* Center all direct children of sections */
+section > div,
+section > form,
+section > .card {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 section h2 {
     font-size: 3rem;
     font-weight: 800;
@@ -370,6 +378,10 @@ section > p {
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2.5rem;
     margin-top: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1200px;
+    justify-items: center;
 }
 
 .card {
@@ -380,6 +392,8 @@ section > p {
     transition: var(--transition);
     border: 1px solid rgba(0,0,0,0.05);
     position: relative;
+    width: 100%;
+    max-width: 400px;
     overflow: hidden;
 }
 
