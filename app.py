@@ -156,9 +156,45 @@ def contact():
     return render_template('contact.html')
 
 @app.route('/submit-contact', methods=['POST'])
+@rate_limit(max_requests=5, window=300)
 def submit_contact():
-    # Handle contact form submission
-    return jsonify({'success': True, 'message': 'Thank you for contacting us. We will respond within 24 hours.'})
+    try:
+        name = sanitize_input(request.form.get('name', ''))
+        email = sanitize_input(request.form.get('email', ''))
+        phone = sanitize_input(request.form.get('phone', ''))
+        company = sanitize_input(request.form.get('company', ''))
+        country = sanitize_input(request.form.get('country', ''))
+        subject = sanitize_input(request.form.get('subject', ''))
+        message = sanitize_input(request.form.get('message', ''))
+        
+        # Validate required fields
+        if not name or not email or not message:
+            return jsonify({'success': False, 'message': 'Name, email, and message are required'})
+        
+        # Validate email
+        if not validate_email(email):
+            return jsonify({'success': False, 'message': 'Invalid email format'})
+        
+        # Create a quote entry to store contact form data
+        contact_quote = Quote(
+            name=name,
+            email=email,
+            phone=phone,
+            company=company,
+            country=country,
+            description=f"CONTACT FORM - Subject: {subject}\n\nMessage: {message}",
+            status='pending'
+        )
+        
+        db.session.add(contact_quote)
+        db.session.commit()
+        
+        return jsonify({'success': True, 'message': 'Thank you for contacting us. We will respond within 24 hours.'})
+    
+    except Exception as e:
+        db.session.rollback()
+        print(f"Contact form error: {str(e)}")
+        return jsonify({'success': False, 'message': 'Failed to send message. Please try again.'})
 
 @app.route('/newsletter-subscribe', methods=['POST'])
 def newsletter_subscribe():
@@ -178,51 +214,60 @@ def newsletter_subscribe():
 @app.route('/client/login', methods=['POST'])
 @rate_limit(max_requests=5, window=300)  # 5 attempts per 5 minutes
 def client_login():
-    email = sanitize_input(request.form.get('email'))
-    password = request.form.get('password')
+    email = request.form.get('email', '').strip()
+    password = request.form.get('password', '')
+    
+    print(f"Login attempt - Email: {email}")  # Debug log
     
     # Validate email format
     if not validate_email(email):
         return jsonify({'success': False, 'message': 'Invalid email format'})
     
-    # Check for SQL injection
-    if check_sql_injection(email):
-        return jsonify({'success': False, 'message': 'Invalid input detected'})
-    
     user = User.query.filter_by(email=email, is_admin=False).first()
     
-    if user and check_password_hash(user.password, password):
-        login_user(user)
-        return jsonify({'success': True, 'redirect': url_for('client_dashboard')})
+    if user:
+        print(f"User found - ID: {user.id}, Checking password...")  # Debug log
+        if check_password_hash(user.password, password):
+            login_user(user)
+            print(f"Login successful for user: {email}")  # Debug log
+            return jsonify({'success': True, 'redirect': url_for('client_dashboard')})
+        else:
+            print(f"Password mismatch for user: {email}")  # Debug log
+    else:
+        print(f"User not found: {email}")  # Debug log
+    
     return jsonify({'success': False, 'message': 'Invalid credentials'})
 
 @app.route('/client/register', methods=['POST'])
-@rate_limit(max_requests=3, window=600)  # 3 attempts per 10 minutes
+@rate_limit(max_requests=5, window=600)  # 5 attempts per 10 minutes (more lenient)
 def client_register():
     try:
-        email = sanitize_input(request.form.get('email'))
-        password = request.form.get('password')
-        company_name = sanitize_input(request.form.get('company_name'))
-        country = sanitize_input(request.form.get('country'))
+        # Get raw form data first
+        email = request.form.get('email', '').strip()
+        password = request.form.get('password', '')
+        company_name = request.form.get('company_name', '').strip()
+        country = request.form.get('country', '').strip()
+        
+        print(f"Registration attempt - Email: {email}, Company: {company_name}")  # Debug log
+        
+        # Basic validation
+        if not email or not password or not company_name:
+            return jsonify({'success': False, 'message': 'All fields are required'})
         
         # Validate email
         if not validate_email(email):
             return jsonify({'success': False, 'message': 'Invalid email format'})
         
-        # Validate password strength
-        is_valid, message = validate_password(password)
-        if not is_valid:
-            return jsonify({'success': False, 'message': message})
-        
-        # Check for SQL injection
-        if check_sql_injection(email) or check_sql_injection(company_name):
-            return jsonify({'success': False, 'message': 'Invalid input detected'})
+        # Simple password validation
+        if len(password) < 6:
+            return jsonify({'success': False, 'message': 'Password must be at least 6 characters'})
         
         # Check if email already exists
-        if User.query.filter_by(email=email).first():
+        existing_user = User.query.filter_by(email=email).first()
+        if existing_user:
             return jsonify({'success': False, 'message': 'Email already registered'})
         
-        # Create new user
+        # Create new user - NO sanitization that might break data
         user = User(
             email=email,
             password=generate_password_hash(password),
@@ -234,12 +279,16 @@ def client_register():
         db.session.add(user)
         db.session.commit()
         
-        return jsonify({'success': True, 'message': 'Registration successful! Please login with your credentials.'})
+        print(f"User registered successfully - ID: {user.id}")  # Debug log
+        
+        return jsonify({'success': True, 'message': 'Registration successful! Please login.'})
     
     except Exception as e:
         db.session.rollback()
-        print(f"Registration error: {str(e)}")  # Log the error
-        return jsonify({'success': False, 'message': 'Registration failed. Please try again.'})
+        print(f"Registration error: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({'success': False, 'message': f'Registration failed: {str(e)}'})
 
 @app.route('/client/dashboard')
 @login_required
